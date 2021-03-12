@@ -15,6 +15,8 @@
 		627F685E25FA5AEA0053C166 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 627F685C25FA5AEA0053C166 /* LaunchScreen.storyboard */; };
 		627F686925FA5AEA0053C166 /* FaceDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F686825FA5AEA0053C166 /* FaceDetectionTests.swift */; };
 		627F687425FA5AEA0053C166 /* FaceDetectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F687325FA5AEA0053C166 /* FaceDetectionUITests.swift */; };
+		627F688625FA8AB60053C166 /* FaceDetectionRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F688525FA8AB60053C166 /* FaceDetectionRecordViewController.swift */; };
+		627F688E25FB9C7F0053C166 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F688D25FB9C7F0053C166 /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		627F686F25FA5AEA0053C166 /* FaceDetectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaceDetectionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F687325FA5AEA0053C166 /* FaceDetectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionUITests.swift; sourceTree = "<group>"; };
 		627F687525FA5AEA0053C166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		627F688525FA8AB60053C166 /* FaceDetectionRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionRecordViewController.swift; sourceTree = "<group>"; };
+		627F688D25FB9C7F0053C166 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 				627F685325FA5AE80053C166 /* SceneDelegate.swift */,
 				627F685525FA5AE80053C166 /* ViewController.swift */,
 				627F685725FA5AE80053C166 /* Main.storyboard */,
+				627F688425FA5C060053C166 /* FaceDetection */,
 				627F685A25FA5AEA0053C166 /* Assets.xcassets */,
 				627F685C25FA5AEA0053C166 /* LaunchScreen.storyboard */,
 				627F685F25FA5AEA0053C166 /* Info.plist */,
@@ -126,6 +131,23 @@
 				627F687525FA5AEA0053C166 /* Info.plist */,
 			);
 			path = FaceDetectionUITests;
+			sourceTree = "<group>";
+		};
+		627F688425FA5C060053C166 /* FaceDetection */ = {
+			isa = PBXGroup;
+			children = (
+				627F688525FA8AB60053C166 /* FaceDetectionRecordViewController.swift */,
+				627F689225FB9CBE0053C166 /* Extensions */,
+			);
+			path = FaceDetection;
+			sourceTree = "<group>";
+		};
+		627F689225FB9CBE0053C166 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				627F688D25FB9C7F0053C166 /* UIView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +282,8 @@
 			files = (
 				627F685625FA5AE80053C166 /* ViewController.swift in Sources */,
 				627F685225FA5AE80053C166 /* AppDelegate.swift in Sources */,
+				627F688625FA8AB60053C166 /* FaceDetectionRecordViewController.swift in Sources */,
+				627F688E25FB9C7F0053C166 /* UIView+Extension.swift in Sources */,
 				627F685425FA5AE80053C166 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
