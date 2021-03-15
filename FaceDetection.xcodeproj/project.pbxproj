@@ -15,8 +15,13 @@
 		627F685E25FA5AEA0053C166 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 627F685C25FA5AEA0053C166 /* LaunchScreen.storyboard */; };
 		627F686925FA5AEA0053C166 /* FaceDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F686825FA5AEA0053C166 /* FaceDetectionTests.swift */; };
 		627F687425FA5AEA0053C166 /* FaceDetectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F687325FA5AEA0053C166 /* FaceDetectionUITests.swift */; };
-		627F688625FA8AB60053C166 /* FaceDetectionRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F688525FA8AB60053C166 /* FaceDetectionRecordViewController.swift */; };
 		627F688E25FB9C7F0053C166 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627F688D25FB9C7F0053C166 /* UIView+Extension.swift */; };
+		628C089525FF96F80001DD67 /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C089425FF96F80001DD67 /* VideoCapture.swift */; };
+		628C089A25FFA4E70001DD67 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C089925FFA4E70001DD67 /* VideoPlayer.swift */; };
+		628C089F25FFE3990001DD67 /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C089E25FFE3990001DD67 /* VideoRecordViewController.swift */; };
+		628C08A725FFE3FF0001DD67 /* FaceDetect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C08A625FFE3FF0001DD67 /* FaceDetect.swift */; };
+		628C08AC25FFF3330001DD67 /* CALAyer+Extensiion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C08AB25FFF3330001DD67 /* CALAyer+Extensiion.swift */; };
+		628C08B125FFF52F0001DD67 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C08B025FFF52F0001DD67 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +56,13 @@
 		627F686F25FA5AEA0053C166 /* FaceDetectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaceDetectionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		627F687325FA5AEA0053C166 /* FaceDetectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionUITests.swift; sourceTree = "<group>"; };
 		627F687525FA5AEA0053C166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		627F688525FA8AB60053C166 /* FaceDetectionRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionRecordViewController.swift; sourceTree = "<group>"; };
 		627F688D25FB9C7F0053C166 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		628C089425FF96F80001DD67 /* VideoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapture.swift; sourceTree = "<group>"; };
+		628C089925FFA4E70001DD67 /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		628C089E25FFE3990001DD67 /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
+		628C08A625FFE3FF0001DD67 /* FaceDetect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetect.swift; sourceTree = "<group>"; };
+		628C08AB25FFF3330001DD67 /* CALAyer+Extensiion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALAyer+Extensiion.swift"; sourceTree = "<group>"; };
+		628C08B025FFF52F0001DD67 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,8 +146,11 @@
 		627F688425FA5C060053C166 /* FaceDetection */ = {
 			isa = PBXGroup;
 			children = (
-				627F688525FA8AB60053C166 /* FaceDetectionRecordViewController.swift */,
 				627F689225FB9CBE0053C166 /* Extensions */,
+				628C089425FF96F80001DD67 /* VideoCapture.swift */,
+				628C089925FFA4E70001DD67 /* VideoPlayer.swift */,
+				628C089E25FFE3990001DD67 /* VideoRecordViewController.swift */,
+				628C08A625FFE3FF0001DD67 /* FaceDetect.swift */,
 			);
 			path = FaceDetection;
 			sourceTree = "<group>";
@@ -146,6 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				627F688D25FB9C7F0053C166 /* UIView+Extension.swift */,
+				628C08AB25FFF3330001DD67 /* CALAyer+Extensiion.swift */,
+				628C08B025FFF52F0001DD67 /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -280,11 +295,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				628C089A25FFA4E70001DD67 /* VideoPlayer.swift in Sources */,
 				627F685625FA5AE80053C166 /* ViewController.swift in Sources */,
+				628C08AC25FFF3330001DD67 /* CALAyer+Extensiion.swift in Sources */,
 				627F685225FA5AE80053C166 /* AppDelegate.swift in Sources */,
-				627F688625FA8AB60053C166 /* FaceDetectionRecordViewController.swift in Sources */,
+				628C08A725FFE3FF0001DD67 /* FaceDetect.swift in Sources */,
 				627F688E25FB9C7F0053C166 /* UIView+Extension.swift in Sources */,
+				628C089525FF96F80001DD67 /* VideoCapture.swift in Sources */,
 				627F685425FA5AE80053C166 /* SceneDelegate.swift in Sources */,
+				628C08B125FFF52F0001DD67 /* String+Extension.swift in Sources */,
+				628C089F25FFE3990001DD67 /* VideoRecordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

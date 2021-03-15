@@ -107,32 +107,22 @@ extension UIView {
         }
     }
     
-}
-
-extension CALayer {
-    func addCircleLayer(origin: CGPoint, radius: CGFloat, color: CGColor, animated: Bool, oldOrigin: CGPoint?) {
-        let layer = CALayer()
-        layer.frame = CGRect(x: origin.x, y: origin.y, width: radius * 2, height: radius * 2)
-        layer.backgroundColor = color
-        layer.cornerRadius = radius
-        self.addSublayer(layer)
-        
-        if animated, let oldOrigin = oldOrigin {
-            let oldFrame = CGRect(x: oldOrigin.x, y: oldOrigin.y, width: radius * 2, height: radius * 2)
-            
-            // "frame" property is not animatable in CALayer, so, I use "position" instead
-            layer.animate(fromValue: CGPoint(x: oldFrame.midX, y: oldFrame.midY),
-                          toValue: CGPoint(x: layer.frame.midX, y: layer.frame.midY),
-                          keyPath: "position")
+    func breathe() {
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       options: [.autoreverse, .repeat, .allowUserInteraction],
+                       animations: {
+                        self.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        },
+                       completion: nil
+        )
+    }
+    
+    func stopBreathing() {
+        UIView.animate(withDuration: 0.5 ) {
+            self.transform = CGAffineTransform.identity
         }
     }
     
-    func animate(fromValue: Any, toValue: Any, keyPath: String, _ duration: CFTimeInterval = 0.5) {
-        let anim = CABasicAnimation(keyPath: keyPath)
-        anim.fromValue = fromValue
-        anim.toValue = toValue
-        anim.duration = duration
-        anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        self.add(anim, forKey: keyPath)
-    }
 }
+

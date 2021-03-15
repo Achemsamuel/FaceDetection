@@ -21,7 +21,7 @@ class ViewController: UIViewController {
 
     
     @IBAction func beginButtonTapped(_ sender: UIButton) {
-        navigationController?.pushViewController(FaceDetectionRecordViewController(), animated: true)
+        navigationController?.pushViewController(VideoRecordViewController(), animated: true)
     }
     
 }
