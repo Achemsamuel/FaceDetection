@@ -73,7 +73,7 @@ final class VideoRecordViewController: UIViewController {
     }()
     
     private var backView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         return view
     }()
@@ -90,6 +90,8 @@ final class VideoRecordViewController: UIViewController {
         
         return textLayer
     }()
+    
+    private var maskLayer: CAShapeLayer?
     
     private lazy var noFacesLabel: UILabel = {
         let label = UILabel()
@@ -134,13 +136,13 @@ final class VideoRecordViewController: UIViewController {
     }
     
     private func runTimer() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {return}
-                
+                self.timer = timer
                 self.seconds -= 1
                 self.runCount += 1
-
+                
                 if self.runCount == 5 {
                     timer.invalidate()
                     self.seconds = 5
@@ -153,35 +155,26 @@ final class VideoRecordViewController: UIViewController {
                 }
                 self.timerLabel.text = "\(self.seconds)"
             }
-        }
+        })
     }
     
     private func justRecordVideo() {}
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        setupMaskedLayer()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        backView.frame = view.bounds
-        let maskLayer = CAShapeLayer()
-        
-        let radius : CGFloat = (view.bounds.width/3)+10
-        
-        let path = UIBezierPath(rect: view.bounds)
-        // Put a circle path in the middle
-        if let navigationBar = navigationController?.navigationBar {
-            path.addArc(withCenter: CGPoint(x: view.center.x, y: navigationBar.frame.maxY+100), radius: radius, startAngle: 0.0, endAngle: CGFloat(2*Double.pi), clockwise: true)
-        } else {
-            path.addArc(withCenter: CGPoint(x: view.center.x, y: 120), radius: radius, startAngle: 0.0, endAngle: CGFloat(2*Double.pi), clockwise: true)
-        }
-        
-        maskLayer.path = path.cgPath
-        maskLayer.fillRule = .evenOdd
-        
-        backView.layer.mask = maskLayer
-        backView.clipsToBounds = true
-        
-        videoView.addSubview(backView)
-        videoCapture?.previewLayer?.frame = videoView.frame
+    }
+    
+    private func resetTimer() {
+        self.seconds = 5
+        self.runCount = 0
+        self.timer?.invalidate()
+        self.timerLabel.text = "\(self.seconds)"
     }
     
     
@@ -212,14 +205,45 @@ final class VideoRecordViewController: UIViewController {
         
     }
     
+    private func setupMaskedLayer() {
+        guard maskLayer == nil else {return}
+        backView.frame = view.bounds
+        maskLayer = CAShapeLayer()
+        guard let maskLayer = maskLayer else {return}
+        let radius : CGFloat = (view.bounds.width/2.5)
+        
+        let path = UIBezierPath(rect: view.bounds)
+        // Put a circle path in the middle
+        var y: CGFloat = .zero
+        let minY = ((view.frame.midY-10)-((view.bounds.width/2.5)*2))
+        let maxY = ((view.bounds.width/2.5)*2)
+        let bottomViewMinY = view.frame.height-205
+        if minY > 0 && maxY < bottomViewMinY {
+            y = ((view.frame.midY)-radius)
+        } else {
+            y = radius+20
+        }
+        
+        path.addArc(withCenter: CGPoint(x: view.center.x, y: y), radius: radius, startAngle: 0.0, endAngle: CGFloat(2*Double.pi), clockwise: true)
+        
+        maskLayer.path = path.cgPath
+        maskLayer.fillRule = .evenOdd
+        
+        backView.layer.mask = maskLayer
+        backView.clipsToBounds = true
+        
+        videoView.addSubview(backView)
+        videoCapture?.previewLayer?.frame = videoView.frame
+    }
+    
     private func setupARKit() {
-//        sceneView = ARSCNView(frame: view.frame)
-//        let configuration = ARFaceTrackingConfiguration()
-//        configuration.isLightEstimationEnabled = true
-//
-//        guard let sceneView = sceneView else {return}
-//        sceneView.delegate = self
-//        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        //        sceneView = ARSCNView(frame: view.frame)
+        //        let configuration = ARFaceTrackingConfiguration()
+        //        configuration.isLightEstimationEnabled = true
+        //
+        //        guard let sceneView = sceneView else {return}
+        //        sceneView.delegate = self
+        //        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
     fileprivate func setupCamera() {
@@ -282,8 +306,16 @@ extension VideoRecordViewController: VideoCaptureDelegate {
                     } else {
                         let text = """
                         We can't see your face 😔 \n
-                        Please, place your face within the circle
+                        Please, place your face within the circle.
                         """
+                        
+                        self.resetTimer()
+                        self.videoCapture?.forceStopRecordingBecauseUserMovedOutOfScreen()
+                        self.recordingVideo = false
+                        self.timerLabel.isHidden = true
+                        self.timerLabel.stopBreathing()
+                        self.recordButton.isHidden = false
+                        
                         let heightOfString = text.heightOfString(usingFont: UIFont.systemFont(ofSize: 15))*2
                         
                         if !self.noFacesLabelAlreadyAdded {

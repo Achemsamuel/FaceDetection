@@ -106,6 +106,10 @@ public class VideoCapture: NSObject {
         }
     }
     
+    public func forceStopRecordingBecauseUserMovedOutOfScreen() {
+        captureState = .idle
+    }
+    
     public func stop() {
         if captureSession.isRunning {
             captureSession.stopRunning()
@@ -149,7 +153,7 @@ public class VideoCapture: NSObject {
 extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
+        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         switch captureState {
         case .start:
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -172,10 +176,10 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
             assetWriterInput = input
             _adapter = adapter
             captureState = .capturing
-            time = timestamp
+            time = timestamp.seconds
         case .capturing:
             if assetWriterInput?.isReadyForMoreMediaData == true {
-                let _time = CMTime(seconds: timestamp - time, preferredTimescale: CMTimeScale(600))
+                let _time = CMTime(seconds: timestamp.seconds - time, preferredTimescale: CMTimeScale(600))
                 if let buffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
                     _adapter?.append(buffer, withPresentationTime: _time)
                 }
@@ -195,10 +199,10 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
             captureSession.stopRunning()
             videoOutput.setSampleBufferDelegate(nil, queue: nil)
         default:
-            let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-            let buffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-            delegate?.videoCapture(self, didCaptureVideoFrame: buffer, timestamp: timestamp)
+            break
         }
+        let buffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+        delegate?.videoCapture(self, didCaptureVideoFrame: buffer, timestamp: timestamp)
     }
 }
 
